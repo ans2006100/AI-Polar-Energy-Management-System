@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
+
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_absolute_error, r2_score
@@ -259,15 +259,17 @@ st.header("📈 Data Analysis")
 # GRAPH 1
 st.subheader("1. Actual vs Predicted Energy Demand")
 
-fig1, ax1 = plt.subplots()
 
-ax1.scatter(y_test, predictions)
+actual_predicted = pd.DataFrame({
+    "Actual": y_test.values,
+    "Predicted": predictions
+})
 
-ax1.set_xlabel("Actual Energy Demand (kWh)")
-ax1.set_ylabel("Predicted Energy Demand (kWh)")
-ax1.set_title("Actual vs Predicted Energy Demand")
-
-st.pyplot(fig1)
+st.scatter_chart(
+    actual_predicted,
+    x="Actual",
+    y="Predicted"
+)
 
 
 # GRAPH 2
